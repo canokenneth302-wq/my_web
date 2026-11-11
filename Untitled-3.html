@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3eb">
+  <title>Carl Carin · Portfolio</title>
+  <style>
+    :root {
+      --bg: #f7f3eb;
+      --bg-strong: #efe7d9;
+      --card: #fffdf9;
+      --ink: #1d1d1f;
+      --muted: #5f5c56;
+      --line: rgba(29, 29, 31, 0.12);
+      --accent: #2144e0;
+      --accent-strong: #152b9d;
+      --highlight: #f28b3d;
+      --shadow: rgba(27, 30, 41, 0.12);
+      --danger: #9d2d28;
+      --success: #1c6a52;
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #17171b;
+        --bg-strong: #202128;
+        --card: #1d1d22;
+        --ink: #f5f3f0;
+        --muted: #bab3ab;
+        --line: rgba(245, 243, 240, 0.12);
+        --accent: #8aa2ff;
+        --accent-strong: #b8c7ff;
+        --highlight: #ffb06e;
+        --shadow: rgba(0, 0, 0, 0.38);
+        --danger: #ff9f9f;
+        --success: #8fe0b7;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, rgba(33, 68, 224, 0.08), transparent 30%), radial-gradient(circle at bottom right, rgba(242, 139, 61, 0.12), transparent 25%), var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    .container { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
+    .site-header {
+      position: sticky; top: 0;
+      backdrop-filter: blur(10px);
+      background: rgba(247, 243, 235, 0.8);
+      border-bottom: 1px solid var(--line);
+      z-index: 5;
+    }
+    @media (prefers-color-scheme: dark) { .site-header { background: rgba(23, 23, 27, 0.82); } }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; min-height: 72px; gap: 20px; }
+    .brand { font-size: 1.05rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--ink); }
+    .top-nav { display: flex; align-items: center; gap: 18px; font-size: 0.96rem; color: var(--muted); }
+    .top-nav a { position: relative; padding-bottom: 2px; }
+    .top-nav a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px; width: 100%; height: 2px; background: var(--highlight); transform: scaleX(0); transform-origin: left; transition: transform 180ms ease;
+    }
+    .top-nav a:hover::after, .top-nav a:focus-visible::after { transform: scaleX(1); }
+
+    .hero { padding: 72px 0 32px; }
+    .hero-shell { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 26px; align-items: end; }
+    .eyebrow {
+      margin: 0 0 12px; display: inline-flex; align-items: center; gap: 10px; font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-strong); font-weight: 700;
+    }
+    .eyebrow::before { content: ""; width: 42px; height: 2px; background: var(--highlight); display: block; }
+    h1, h2, h3 { margin: 0; color: var(--ink); font-family: Georgia, Cambria, "Times New Roman", serif; line-height: 1.06; letter-spacing: -0.04em; }
+    .hero h1 { font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 16px; }
+    .lead { max-width: 33rem; font-size: 1.08rem; color: var(--muted); margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 24px; }
+    .button {
+      appearance: none; border: 1px solid transparent; border-radius: 999px; padding: 0.82rem 1.35rem; background: var(--card); color: var(--ink); font-weight: 700; letter-spacing: 0.02em; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
+    }
+    .button:hover, .button:focus-visible { transform: translateY(-1px); box-shadow: 0 10px 26px var(--shadow); }
+    .button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .button.secondary { background: transparent; border-color: var(--line); }
+    .button.danger { background: rgba(157, 45, 40, 0.08); color: var(--danger); border-color: rgba(157, 45, 40, 0.18); }
+    .mini-stats { display: flex; flex-wrap: wrap; gap: 14px; list-style: none; padding: 0; margin: 0; color: var(--muted); }
+    .mini-stats li { min-width: 120px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,0.4); box-shadow: 0 8px 20px rgba(17,17,19,0.02); }
+    .mini-stats strong { display: block; font-size: 1.1rem; color: var(--ink); }
+    .hero-card {
+      background: linear-gradient(135deg, rgba(33, 68, 224, 0.08), rgba(242, 139, 61, 0.08)), var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 24px; box-shadow: 0 18px 52px rgba(31,33,40,0.08); min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;
+    }
+    .hero-card::before { content: ""; position: absolute; inset: 14px auto auto 14px; width: 82px; height: 82px; border-radius: 50%; background: rgba(242, 139, 61, 0.12); }
+    .hero-card::after { content: ""; position: absolute; right: -20px; bottom: -10px; width: 180px; height: 180px; border-radius: 50%; background: rgba(33, 68, 224, 0.08); }
+    .card-header { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+    .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 0.42rem 0.7rem; background: rgba(33, 68, 224, 0.08); color: var(--accent-strong); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pulse-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; box-shadow: 0 0 0 7px rgba(28,106,82,0.15); display: inline-block; }
+    .hero-card-copy { position: relative; z-index: 1; margin-top: 36px; }
+    .hero-card-copy h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; }
+    .hero-card-copy p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .hero-card-footer { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 12px; padding-top: 24px; border-top: 1px solid var(--line); margin-top: 22px; }
+    .hero-card-footer span { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .hero-card-footer strong { display: block; color: var(--ink); font-size: 1.25rem; }
+    main { padding-bottom: 32px; }
+    section { padding: 36px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 24px; }
+    .section-label { margin: 0 0 8px; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-strong); font-weight: 700; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); }
+    .about-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 24px; align-items: start; }
+    .about-copy { color: var(--muted); font-size: 1.06rem; }
+    .about-copy p { margin: 0 0 1rem; }
+    .note-panel { background: var(--card); border-radius: 22px; border: 1px solid var(--line); padding: 22px; box-shadow: 0 10px 30px rgba(17,17,19,0.03); }
+    .note-panel h3 { font-size: 1.5rem; margin-bottom: 14px; }
+    .note-panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .note-panel li { display: flex; gap: 12px; align-items: start; color: var(--muted); }
+    .note-panel li::before { content: "✦"; color: var(--highlight); font-weight: 700; }
+    .projects-layout { display: grid; gap: 18px; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .project-card {
+      display: flex; flex-direction: column; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 20px 18px 18px; box-shadow: 0 10px 26px rgba(22,25,29,0.04); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; min-height: 240px; cursor: pointer;
+    }
+    .project-card:hover { transform: translateY(-4px); border-color: rgba(33, 68, 224, 0.28); box-shadow: 0 18px 38px rgba(23,28,39,0.08); }
+    .project-card-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .project-category { display: inline-flex; align-items: center; border-radius: 999px; background: rgba(33, 68, 224, 0.08); color: var(--accent-strong); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.42rem 0.62rem; }
+    .project-preview {
+      position: relative; display: grid; gap: 10px; padding: 10px 12px 12px; border-radius: 14px; border: 1px solid rgba(33, 68, 224, 0.14); background: linear-gradient(135deg, rgba(33,68,224,0.08), rgba(242,139,61,0.08)); overflow: hidden;
+    }
+    .project-preview::before {
+      content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(255,255,255,0.3), transparent 45%); pointer-events: none;
+    }
+    .preview-window {
+      position: relative; z-index: 1; display: flex; align-items: center; gap: 7px; padding-bottom: 8px; border-bottom: 1px solid rgba(29,29,31,0.08);
+    }
+    .preview-window i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: rgba(29, 29, 31, 0.25); }
+    .preview-window i:nth-child(1) { background: rgba(242, 139, 61, 0.9); }
+    .preview-window i:nth-child(2) { background: rgba(33, 68, 224, 0.8); }
+    .preview-window i:nth-child(3) { background: rgba(29, 29, 31, 0.3); }
+    .preview-lines {
+      position: relative; z-index: 1; display: grid; gap: 7px;
+    }
+    .preview-lines span {
+      display: block; height: 7px; border-radius: 999px; background: rgba(29,29,31,0.16);
+    }
+    .preview-lines span:nth-child(1) { width: 72%; }
+    .preview-lines span:nth-child(2) { width: 94%; }
+    .preview-lines span:nth-child(3) { width: 66%; }
+    .edit-chip { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 0.78rem; font-weight: 600; border-radius: 999px; padding: 0.42rem 0.6rem; cursor: pointer; transition: border-color 180ms ease, background 180ms ease; }
+    .edit-chip:hover, .edit-chip:focus-visible { background: rgba(33,68,224,0.05); border-color: rgba(33,68,224,0.2); outline: none; }
+    .project-card h3 { font-size: 1.7rem; margin-bottom: 10px; }
+    .project-card p { margin: 0; color: var(--muted); font-size: 1rem; flex: 1; }
+    .tech-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+    .tech-list li { border: 1px solid var(--line); border-radius: 999px; padding: 0.36rem 0.58rem; font-size: 0.72rem; color: var(--muted); background: rgba(255,255,255,0.3); }
+    .project-link { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-strong); font-weight: 700; margin-top: 2px; }
+    .project-link::after { content: "→"; transition: transform 180ms ease; }
+    .project-link:hover::after, .project-link:focus-visible::after { transform: translateX(4px); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .skill-item { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; color: var(--ink); font-weight: 700; box-shadow: 0 10px 24px rgba(17,17,19,0.02); }
+    .contact-wrap { background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: clamp(22px, 4vw, 34px); display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: center; }
+    .contact-copy { color: var(--muted); }
+    .contact-copy p { margin-top: 0; margin-bottom: 0; }
+    .contact-methods { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .contact-link { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0.8rem 1.2rem; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 700; box-shadow: 0 8px 20px rgba(33,68,224,0.15); }
+    .muted-link { color: var(--accent-strong); font-weight: 600; }
+    footer { padding: 16px 0 42px; color: var(--muted); text-align: center; }
+    dialog { border: 1px solid var(--line); border-radius: 24px; padding: 0; background: var(--card); color: var(--ink); width: min(640px, calc(100% - 24px)); box-shadow: 0 28px 64px rgba(15,17,25,0.18); }
+    dialog::backdrop { background: rgba(14,16,21,0.52); }
+    .dialog-inner { padding: 18px 18px 16px; }
+    .dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .dialog-header h3 { font-size: clamp(1.8rem, 4vw, 2.3rem); }
+    .close-button { appearance: none; border: 1px solid var(--line); background: transparent; border-radius: 50%; width: 38px; height: 38px; color: var(--ink); font-size: 1.4rem; cursor: pointer; }
+    .project-form { display: grid; gap: 16px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .field { display: grid; gap: 8px; color: var(--ink); font-weight: 600; }
+    .field.full { grid-column: 1 / -1; }
+    .field input, .field textarea { width: 100%; background: rgba(255,255,255,0.22); border: 1px solid var(--line); border-radius: 12px; padding: 0.9rem 0.95rem; color: var(--ink); resize: vertical; min-height: 48px; }
+    .field textarea { min-height: 120px; }
+    .field input:focus, .field textarea:focus, .button:focus-visible, .edit-chip:focus-visible, .close-button:focus-visible, .top-nav a:focus-visible, .contact-link:focus-visible { outline: 3px solid rgba(33,68,224,0.25); outline-offset: 2px; }
+    .form-error { min-height: 1.3rem; color: var(--danger); font-size: 0.9rem; font-weight: 600; }
+    .dialog-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 6px; }
+    .dialog-actions .action-group { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    @media (max-width: 840px) {
+      .hero-shell, .about-grid, .projects-grid, .contact-wrap, .skills-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 42px; }
+      .top-nav { gap: 10px; font-size: 0.82rem; }
+    }
+    @media (max-width: 620px) {
+      .header-inner, .section-head, .dialog-actions, .dialog-actions .action-group { display: grid; }
+      .header-inner, .section-head { align-items: start; }
+      .top-nav { flex-wrap: wrap; }
+      .button, .contact-link { width: 100%; }
+      .hero-actions { flex-direction: column; }
+      .project-form .form-grid { grid-template-columns: 1fr; }
+      .dialog-actions { gap: 10px; }
+      .dialog-actions .action-group { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand">Carl Carin</a>
+      <nav class="top-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-shell">
+        <div>
+          <p class="eyebrow">Web designer &amp; developer</p>
+          <h1 id="hero-title">Hi I'm Carl Carin</h1>
+          <p class="lead">I create warm, strategic websites for local brands and small businesses across the Philippines — blending design clarity, smart storytelling, and practical functionality.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">View projects</a>
+            <a class="button secondary" href="#contact">Let’s work together</a>
+          </div>
+          <ul class="mini-stats" aria-label="Highlights">
+            <li><strong>6+</strong> years building digital experiences</li>
+            <li><strong>24</strong> local brand launches</li>
+            <li><strong>1:1</strong> design-first collaboration</li>
+          </ul>
+        </div>
+
+        <aside class="hero-card" aria-label="Carl's current focus">
+          <div class="card-header">
+            <span class="badge">Now booking</span>
+            <span class="pulse-dot" aria-label="Available for work"></span>
+          </div>
+          <div class="hero-card-copy">
+            <h2>Thoughtful web design for real people.</h2>
+            <p>From café brands to travel stories and online stores, I build pages that feel personal, polished, and easy to use.</p>
+          </div>
+          <div class="hero-card-footer">
+            <div><span>Based in</span><strong>Philippines</strong></div>
+            <div><span>Focus</span><strong>Brand &amp; web</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <div>
+          <p class="section-label">About</p>
+          <h2 id="about-title">Simple, welcoming digital experiences.</h2>
+        </div>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I’m Carl Carin, a freelance designer and front-end developer helping small businesses look more confident online. My work blends usability, warm storytelling, and the kind of visual clarity that makes people trust a brand immediately.</p>
+          <p>Whether it’s a café, a travel journal, or a local shop, I enjoy turning ideas into websites that feel human, useful, and easy to manage — especially for founders who want their business to feel more polished without complicated systems.</p>
+        </div>
+        <aside class="note-panel" aria-label="Approach overview">
+          <h3>What I value</h3>
+          <ul>
+            <li>Clear strategy before flashy design</li>
+            <li>Friendly, mobile-first experiences</li>
+            <li>Content that feels genuine to the brand</li>
+            <li>Long-term usability and easy updates</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <div>
+          <p class="section-label">Selected work</p>
+          <h2 id="projects-title">Projects</h2>
+        </div>
+        <button type="button" class="button primary" id="add-project-btn">Add project</button>
+      </div>
+      <div class="projects-layout">
+        <div id="project-list" class="projects-grid" aria-live="polite"></div>
+        <p id="project-status" class="sr-only" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-title">
+      <div class="section-head">
+        <div>
+          <p class="section-label">Capabilities</p>
+          <h2 id="skills-title">Skills</h2>
+        </div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-item">HTML &amp; CSS</div>
+        <div class="skill-item">JavaScript</div>
+        <div class="skill-item">UI Design</div>
+        <div class="skill-item">Brand systems</div>
+        <div class="skill-item">Responsive layouts</div>
+        <div class="skill-item">Content strategy</div>
+        <div class="skill-item">Prototype thinking</div>
+        <div class="skill-item">Local business websites</div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-head">
+        <div>
+          <p class="section-label">Contact</p>
+          <h2 id="contact-title">Let’s build something memorable.</h2>
+        </div>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-copy">
+          <p>Need a cleaner online presence for your shop, café, or local brand? I can help shape the content, design, and front-end experience so people connect with it faster.</p>
+        </div>
+        <div class="contact-methods">
+          <a class="contact-link" href="mailto:hello@carlcarin.design">hello@carlcarin.design</a>
+          <a class="muted-link" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Carl Carin</div>
+  </footer>
+
+  <dialog id="project-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <h3 id="dialog-title">Project details</h3>
+        <button type="button" class="close-button" id="close-dialog-btn" aria-label="Close project editor">×</button>
+      </div>
+      <form id="project-form" class="project-form" novalidate>
+        <div class="form-grid">
+          <label class="field">
+            <span>Title</span>
+            <input type="text" name="title" id="title" maxlength="80" required>
+          </label>
+          <label class="field">
+            <span>Category</span>
+            <input type="text" name="category" id="category" maxlength="60" required>
+          </label>
+          <label class="field full">
+            <span>Summary</span>
+            <textarea name="summary" id="summary" maxlength="220" required></textarea>
+          </label>
+          <label class="field full">
+            <span>Technologies</span>
+            <input type="text" name="technologies" id="technologies" maxlength="140" required placeholder="HTML, CSS, JavaScript">
+          </label>
+          <label class="field full">
+            <span>Project URL (optional)</span>
+            <input type="url" name="url" id="url" placeholder="https://example.com">
+          </label>
+        </div>
+        <div id="form-error" class="form-error" role="alert" aria-live="assertive"></div>
+        <div class="dialog-actions">
+          <button type="button" class="button danger" id="delete-project-btn" hidden>Delete</button>
+          <div class="action-group">
+            <button type="button" class="button secondary" id="cancel-project-btn">Cancel</button>
+            <button type="submit" class="button primary" id="save-project-btn">Save project</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <script>
+    const STORAGE_KEY = 'carl-portfolio-projects-v1';
+    const DEFAULT_PROJECTS = [
+      { title: 'Kapeng Bahay Café', summary: 'A warm café landing page built to showcase the menu, ambiance, and community-driven story behind a neighborhood coffee spot.', category: 'Food & Beverage', technologies: 'HTML, CSS, JavaScript', url: 'https://example.com/kapengbahay' },
+      { title: 'Samar & Leyte Travel Journal', summary: 'A storytelling-first travel microsite that highlights hidden beaches, local food spots, and personal guides for island-hopping adventures.', category: 'Travel', technologies: 'Responsive UI, Content Design', url: 'https://example.com/samar-leyte' },
+      { title: 'Local Online Shop', summary: 'A small storefront concept designed around simple browsing, clear product messaging, and an easy checkout path for homegrown products.', category: 'E-commerce', technologies: 'Product UX, Front-End', url: 'https://example.com/localshop' }
+    ];
+
+    const projectList = document.getElementById('project-list');
+    const addProjectBtn = document.getElementById('add-project-btn');
+    const projectDialog = document.getElementById('project-dialog');
+    const projectForm = document.getElementById('project-form');
+    const formError = document.getElementById('form-error');
+    const deleteProjectBtn = document.getElementById('delete-project-btn');
+    const closeDialogBtn = document.getElementById('close-dialog-btn');
+    const cancelProjectBtn = document.getElementById('cancel-project-btn');
+    const projectStatus = document.getElementById('project-status');
+    let projects = loadProjects();
+    let editingIndex = null;
+    let lastDialogTrigger = null;
+
+    function loadProjects() {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (!raw) return JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || parsed.length === 0) return JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+        return parsed.map(normalizeProject).filter(Boolean);
+      } catch (error) {
+        announceStatus('Saved projects could not be loaded, so the default portfolio entries were restored.');
+        return JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+      }
+    }
+
+    function normalizeProject(project) {
+      if (!project || typeof project !== 'object') return null;
+      return {
+        title: String(project.title || '').trim(),
+        summary: String(project.summary || '').trim(),
+        category: String(project.category || '').trim(),
+        technologies: String(project.technologies || '').trim(),
+        url: String(project.url || '').trim()
+      };
+    }
+
+    function saveProjects() {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+      } catch (error) {
+        announceStatus('Project list could not be saved in this browser.');
+        formError.textContent = 'The browser storage is unavailable right now. Your changes could not be saved.';
+        throw error;
+      }
+    }
+
+    function announceStatus(message) { projectStatus.textContent = message; }
+
+    function fillForm(project = null) {
+      projectForm.reset();
+      formError.textContent = '';
+      if (project) {
+        document.getElementById('title').value = project.title || '';
+        document.getElementById('summary').value = project.summary || '';
+        document.getElementById('category').value = project.category || '';
+        document.getElementById('technologies').value = project.technologies || '';
+        document.getElementById('url').value = project.url || '';
+      }
+    }
+
+    function closeDialog() {
+      if (projectDialog.open) {
+        projectDialog.close();
+      }
+      editingIndex = null;
+      deleteProjectBtn.hidden = true;
+      fillForm();
+      const restoreFocusTarget = lastDialogTrigger;
+      lastDialogTrigger = null;
+      if (restoreFocusTarget && typeof restoreFocusTarget.focus === 'function') {
+        window.requestAnimationFrame(() => restoreFocusTarget.focus());
+      }
+    }
+
+    function openAddProjectDialog(event) {
+      lastDialogTrigger = event && event.currentTarget ? event.currentTarget : addProjectBtn;
+      editingIndex = null;
+      deleteProjectBtn.hidden = true;
+      fillForm();
+      projectDialog.showModal();
+      document.getElementById('title').focus();
+    }
+
+    function openEditProjectDialog(index, trigger = null) {
+      editingIndex = index;
+      lastDialogTrigger = trigger || document.activeElement || addProjectBtn;
+      const project = projects[index];
+      fillForm(project);
+      deleteProjectBtn.hidden = false;
+      projectDialog.showModal();
+      document.getElementById('title').focus();
+    }
+
+    function getTechnologyTags(rawValue) { return String(rawValue || '').split(',').map(item => item.trim()).filter(Boolean); }
+
+    function renderProjects() {
+      projectList.innerHTML = '';
+      projects.forEach((project, index) => {
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        card.dataset.projectIndex = index;
+
+        const header = document.createElement('div');
+        header.className = 'project-card-header';
+
+        const category = document.createElement('span');
+        category.className = 'project-category';
+        category.textContent = project.category;
+
+        const editButton = document.createElement('button');
+        editButton.type = 'button';
+        editButton.className = 'edit-chip';
+        editButton.textContent = 'Edit';
+        editButton.setAttribute('aria-label', `Edit ${project.title}`);
+        editButton.addEventListener('click', (event) => {
+          openEditProjectDialog(index, editButton);
+        });
+
+        header.appendChild(category);
+        header.appendChild(editButton);
+
+        const preview = document.createElement('div');
+        preview.className = 'project-preview';
+        preview.innerHTML = `
+          <div class="preview-window" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </div>
+          <div class="preview-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        `;
+
+        const title = document.createElement('h3');
+        title.textContent = project.title;
+
+        const summary = document.createElement('p');
+        summary.textContent = project.summary;
+
+        const tags = document.createElement('ul');
+        tags.className = 'tech-list';
+        getTechnologyTags(project.technologies).forEach(tagText => {
+          const tag = document.createElement('li');
+          tag.textContent = tagText;
+          tags.appendChild(tag);
+        });
+
+        const linkWrap = document.createElement('div');
+        if (project.url) {
+          const link = document.createElement('a');
+          link.href = project.url;
+          link.target = '_blank';
+          link.rel = 'noreferrer';
+          link.className = 'project-link';
+          link.textContent = 'Visit project';
+          linkWrap.appendChild(link);
+        }
+
+        card.appendChild(header);
+        card.appendChild(preview);
+        card.appendChild(title);
+        card.appendChild(summary);
+        card.appendChild(tags);
+        card.appendChild(linkWrap);
+
+        projectList.appendChild(card);
+      });
+    }
+
+    projectList.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target : event.target.parentElement;
+      if (!target || target.closest('a, button')) return;
+
+      const card = target.closest('.project-card');
+      if (!card || !projectList.contains(card)) return;
+      openEditProjectDialog(Number(card.dataset.projectIndex), card.querySelector('.edit-chip'));
+    });
+
+    function validateProjectData(formData) {
+      const title = String(formData.get('title') || '').trim();
+      const summary = String(formData.get('summary') || '').trim();
+      const category = String(formData.get('category') || '').trim();
+      const technologies = String(formData.get('technologies') || '').trim();
+      const rawUrl = String(formData.get('url') || '').trim();
+
+      if (!title || !summary || !category || !technologies) return 'Title, summary, category, and technologies are required.';
+      if (rawUrl) {
+        try {
+          const url = new URL(rawUrl);
+          if (!['http:', 'https:'].includes(url.protocol)) return 'Project URL must begin with http:// or https://.';
+        } catch (error) {
+          return 'Project URL must be a valid URL.';
+        }
+      }
+      return '';
+    }
+
+    function handleProjectSubmit(event) {
+      event.preventDefault();
+      formError.textContent = '';
+      const formData = new FormData(projectForm);
+      const validationMessage = validateProjectData(formData);
+      if (validationMessage) {
+        formError.textContent = validationMessage;
+        return;
+      }
+
+      const newProject = normalizeProject({
+        title: formData.get('title'),
+        summary: formData.get('summary'),
+        category: formData.get('category'),
+        technologies: formData.get('technologies'),
+        url: formData.get('url')
+      });
+
+      if (!newProject) {
+        formError.textContent = 'This project could not be saved.';
+        return;
+      }
+
+      const isEditing = editingIndex !== null;
+
+      try {
+        if (isEditing) projects[editingIndex] = newProject;
+        else projects.push(newProject);
+        saveProjects();
+        renderProjects();
+        closeDialog();
+        announceStatus(isEditing ? 'Project updated successfully.' : 'Project added successfully.');
+      } catch (error) {
+        formError.textContent = 'Something went wrong while saving this project.';
+      }
+    }
+
+    function deleteProject() {
+      if (editingIndex === null) return;
+      const project = projects[editingIndex];
+      const confirmed = window.confirm(`Delete "${project.title}"?`);
+      if (!confirmed) return;
+      projects.splice(editingIndex, 1);
+      saveProjects();
+      renderProjects();
+      closeDialog();
+      announceStatus('Project removed successfully.');
+    }
+
+    addProjectBtn.addEventListener('click', openAddProjectDialog);
+    closeDialogBtn.addEventListener('click', closeDialog);
+    cancelProjectBtn.addEventListener('click', closeDialog);
+    deleteProjectBtn.addEventListener('click', deleteProject);
+    projectForm.addEventListener('submit', handleProjectSubmit);
+    projectDialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      closeDialog();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && projectDialog.open) {
+        event.preventDefault();
+        closeDialog();
+      }
+    });
+    renderProjects();
+  </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Notes &amp; Nooks</title>
+  <style>
+    :root {
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      --bg: #f6efe3;
+      --card: #fffaf0;
+      --ink: #2e2418;
+      --muted: #7a6a55;
+      --accent: #b5532f;
+      --line: #e2d4bc;
+      color-scheme: light
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #1f1812;
+        --card: #2a2119;
+        --ink: #f1e6d3;
+        --muted: #a8977f;
+        --accent: #e39168;
+        --line: #3d3226;
+        color-scheme: dark
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #1f1812;
+      --card: #2a2119;
+      --ink: #f1e6d3;
+      --muted: #a8977f;
+      --accent: #e39168;
+      --line: #3d3226;
+      color-scheme: dark
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+      scroll-behavior: smooth
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold
+    }
+
+    .logo span {
+      color: var(--accent)
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 18px;
+      font-family: system-ui, sans-serif;
+      font-size: .95rem
+    }
+
+    nav a:hover {
+      color: var(--accent)
+    }
+
+    .hero {
+      text-align: center;
+      padding: 56px 0 48px
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 7vw, 3.6rem);
+      margin: 0 0 12px;
+      line-height: 1.1
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 24px;
+      font-size: 1.1rem
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 26px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: system-ui, sans-serif;
+      border: 0;
+      cursor: pointer;
+      font-size: 1rem
+    }
+
+    .btn:hover {
+      opacity: .9
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      margin: 48px 0 18px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px
+    }
+
+    .card .ico {
+      font-size: 2rem
+    }
+
+    .card h3 {
+      margin: 8px 0 4px
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem
+    }
+
+    .pad {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px
+    }
+
+    .pad form {
+      display: flex;
+      gap: 8px
+    }
+
+    .pad input {
+      flex: 1;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 1rem;
+      font-family: inherit
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--line)
+    }
+
+    li button {
+      background: none;
+      border: 0;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem
+    }
+
+    li button:hover {
+      color: var(--accent)
+    }
+
+    .empty {
+      color: var(--muted);
+      font-style: italic
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 48px 0 32px;
+      font-size: .9rem
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="logo">Notes <span>&amp;</span> Nooks</div>
+      <div><a href="#nooks">Nooks</a><a href="#notes">My notes</a></div>
+    </nav>
+
+    <header class="hero">
+      <h1>A cozy corner for your thoughts</h1>
+      <p>Jot ideas, collect little reads, and find a quiet nook to enjoy them in.</p>
+      <a class="btn" href="#notes">Start a note</a>
+    </header>
+
+    <section id="nooks">
+      <h2>Pick your nook</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="ico">☕</div>
+          <h3>Morning Pages</h3>
+          <p>Three quiet minutes of writing before the day begins.</p>
+        </div>
+        <div class="card">
+          <div class="ico">📚</div>
+          <h3>Reading Corner</h3>
+          <p>Keep quotes, titles and thoughts from what you’re reading.</p>
+        </div>
+        <div class="card">
+          <div class="ico">🌧️</div>
+          <h3>Rainy Day Ideas</h3>
+          <p>A shelf for sparks you’ll want to come back to.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="notes">
+      <h2>Your notes</h2>
+      <div class="pad">
+        <form id="f"><input id="t" placeholder="Write a note and press Add…" maxlength="140" autocomplete="off"><button
+            class="btn" type="submit">Add</button></form>
+        <ul id="list"></ul>
+      </div>
+    </section>
+
+    <footer>Made with care · Notes &amp; Nooks © 2026</footer>
+  </div>
+  <script>
+    const KEY = "nn-notes"; let notes = [];
+    try { notes = JSON.parse(localStorage.getItem(KEY)) || [] } catch (e) { notes = [] }
+    const list = document.getElementById("list");
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(notes)) } catch (e) { } }
+    function render() {
+      list.innerHTML = "";
+      if (!notes.length) { list.innerHTML = '<li class="empty">No notes yet. Your first thought goes here.</li>'; return }
+      notes.forEach((n, i) => {
+        const li = document.createElement("li");
+        const s = document.createElement("span"); s.textContent = n;
+        const b = document.createElement("button"); b.textContent = "✕"; b.setAttribute("aria-label", "Delete note");
+        b.onclick = () => { notes.splice(i, 1); save(); render() };
+        li.append(s, b); list.append(li);
+      });
+    }
+    document.getElementById("f").addEventListener("submit", e => {
+      e.preventDefault();
+      const t = document.getElementById("t");
+      if (t.value.trim()) { notes.unshift(t.value.trim()); save(); render(); t.value = "" }
+    });
+    render();
+  </script>
+</body>
+
+</html>
