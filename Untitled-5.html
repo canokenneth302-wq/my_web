@@ -1,0 +1,2731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3eb">
+  <title>Carl Carin · Portfolio</title>
+  <style>
+    :root {
+      --bg: #f7f3eb;
+      --bg-strong: #efe7d9;
+      --card: #fffdf9;
+      --ink: #1d1d1f;
+      --muted: #5f5c56;
+      --line: rgba(29, 29, 31, 0.12);
+      --accent: #2144e0;
+      --accent-strong: #152b9d;
+      --highlight: #f28b3d;
+      --shadow: rgba(27, 30, 41, 0.12);
+      --danger: #9d2d28;
+      --success: #1c6a52;
+      color-scheme: light;
+    }
+
+    .field input[type="file"] {
+      padding: .62rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #17171b;
+        --bg-strong: #202128;
+        --card: #1d1d22;
+        --ink: #f5f3f0;
+        --muted: #bab3ab;
+        --line: rgba(245, 243, 240, 0.12);
+        --accent: #8aa2ff;
+        --accent-strong: #b8c7ff;
+        --highlight: #ffb06e;
+        --shadow: rgba(0, 0, 0, 0.38);
+        --danger: #ff9f9f;
+        --success: #8fe0b7;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, rgba(33, 68, 224, 0.08), transparent 30%), radial-gradient(circle at bottom right, rgba(242, 139, 61, 0.12), transparent 25%), var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background: rgba(247, 243, 235, 0.8);
+      border-bottom: 1px solid var(--line);
+      z-index: 5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .site-header {
+        background: rgba(23, 23, 27, 0.82);
+      }
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 72px;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.05rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.96rem;
+      color: var(--muted);
+    }
+
+    .top-nav a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .top-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background: var(--highlight);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 180ms ease;
+    }
+
+    .top-nav a:hover::after,
+    .top-nav a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    .hero {
+      padding: 72px 0 32px;
+    }
+
+    .hero-shell {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 26px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 2px;
+      background: var(--highlight);
+      display: block;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: var(--ink);
+      font-family: Georgia, Cambria, "Times New Roman", serif;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      max-width: 33rem;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .button {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0.82rem 1.35rem;
+      background: var(--card);
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px var(--shadow);
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .button.secondary {
+      background: transparent;
+      border-color: var(--line);
+    }
+
+    .button.danger {
+      background: rgba(157, 45, 40, 0.08);
+      color: var(--danger);
+      border-color: rgba(157, 45, 40, 0.18);
+    }
+
+    .mini-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .mini-stats li {
+      min-width: 120px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 20px rgba(17, 17, 19, 0.02);
+    }
+
+    .mini-stats strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, rgba(33, 68, 224, 0.08), rgba(242, 139, 61, 0.08)), var(--card);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 18px 52px rgba(31, 33, 40, 0.08);
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 14px auto auto 14px;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: rgba(242, 139, 61, 0.12);
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      bottom: -10px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(33, 68, 224, 0.08);
+    }
+
+    .card-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.42rem 0.7rem;
+      background: rgba(33, 68, 224, 0.08);
+      color: var(--accent-strong);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 0 7px rgba(28, 106, 82, 0.15);
+      display: inline-block;
+    }
+
+    .hero-card-copy {
+      position: relative;
+      z-index: 1;
+      margin-top: 36px;
+    }
+
+    .hero-card-copy h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 14px;
+    }
+
+    .hero-card-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-card-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      margin-top: 22px;
+    }
+
+    .hero-card-footer span {
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-card-footer strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.25rem;
+    }
+
+    main {
+      padding-bottom: 32px;
+    }
+
+    section {
+      padding: 36px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-label {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .about-copy {
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .about-copy p {
+      margin: 0 0 1rem;
+    }
+
+    .note-panel {
+      background: var(--card);
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(17, 17, 19, 0.03);
+    }
+
+    .note-panel h3 {
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+    }
+
+    .note-panel ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .note-panel li {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      color: var(--muted);
+    }
+
+    .note-panel li::before {
+      content: "✦";
+      color: var(--highlight);
+      font-weight: 700;
+    }
+
+    .projects-layout {
+      display: grid;
+      gap: 18px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px 18px 18px;
+      box-shadow: 0 10px 26px rgba(22, 25, 29, 0.04);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      min-height: 240px;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(33, 68, 224, 0.28);
+      box-shadow: 0 18px 38px rgba(23, 28, 39, 0.08);
+    }
+
+    .project-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .project-category {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: rgba(33, 68, 224, 0.08);
+      color: var(--accent-strong);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.42rem 0.62rem;
+    }
+
+    .project-preview {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      min-height: 156px;
+      padding: 10px 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(33, 68, 224, 0.14);
+      background: linear-gradient(135deg, rgba(33, 68, 224, 0.08), rgba(242, 139, 61, 0.08));
+      overflow: hidden;
+    }
+
+    .project-art,
+    .preview-art {
+      position: relative;
+      min-height: 156px;
+      overflow: hidden;
+      border-radius: 12px;
+      isolation: isolate;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #d9e3cb, #f3c58f 60%, #bb6843);
+      color: #fffdf9;
+    }
+
+    .project-art::before,
+    .preview-art::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 22%, rgba(255, 255, 255, .55), transparent 24%), linear-gradient(160deg, transparent 34%, rgba(39, 70, 53, .28) 35% 45%, transparent 46%), linear-gradient(15deg, rgba(23, 54, 76, .45), transparent 58%);
+    }
+
+    .project-art[data-kind="travel"],
+    .preview-art[data-kind="travel"] {
+      background: linear-gradient(155deg, #bad8d4, #5ca9ae 48%, #f0c98e 49%, #e9a76b);
+    }
+
+    .project-art[data-kind="shop"],
+    .preview-art[data-kind="shop"] {
+      background: linear-gradient(140deg, #d6bd91, #a9744c 52%, #664735);
+    }
+
+    .project-art[data-kind="cafe"],
+    .preview-art[data-kind="cafe"] {
+      background: linear-gradient(145deg, #ead7b4, #a95f3c 60%, #49382e);
+    }
+
+    .project-art img,
+    .preview-art img,
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-art img,
+    .preview-art img {
+      position: absolute;
+      inset: 0;
+    }
+
+    .art-copy {
+      position: relative;
+      z-index: 1;
+      padding: 16px;
+      width: 100%;
+      text-align: center;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .4);
+    }
+
+    .art-copy strong {
+      display: block;
+      font: 700 clamp(1.25rem, 3vw, 2rem)/1 Georgia, serif;
+      letter-spacing: -.03em;
+    }
+
+    .art-copy span {
+      display: block;
+      margin-top: 8px;
+      font-size: .68rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .project-preview.has-image {
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+
+    .project-preview.has-image .project-art {
+      min-height: 176px;
+    }
+
+    .project-preview.has-image .art-copy,
+    .preview-art.has-image .art-copy {
+      display: none;
+    }
+
+    .project-preview::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), transparent 45%);
+      pointer-events: none;
+    }
+
+    .preview-window {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(29, 29, 31, 0.08);
+    }
+
+    .preview-window i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      background: rgba(29, 29, 31, 0.25);
+    }
+
+    .preview-window i:nth-child(1) {
+      background: rgba(242, 139, 61, 0.9);
+    }
+
+    .preview-window i:nth-child(2) {
+      background: rgba(33, 68, 224, 0.8);
+    }
+
+    .preview-window i:nth-child(3) {
+      background: rgba(29, 29, 31, 0.3);
+    }
+
+    .preview-lines {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 7px;
+    }
+
+    .preview-lines span {
+      display: block;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(29, 29, 31, 0.16);
+    }
+
+    .preview-lines span:nth-child(1) {
+      width: 72%;
+    }
+
+    .preview-lines span:nth-child(2) {
+      width: 94%;
+    }
+
+    .preview-lines span:nth-child(3) {
+      width: 66%;
+    }
+
+    .edit-chip {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.42rem 0.6rem;
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+
+    .edit-chip:hover,
+    .edit-chip:focus-visible {
+      background: rgba(33, 68, 224, 0.05);
+      border-color: rgba(33, 68, 224, 0.2);
+      outline: none;
+    }
+
+    .project-card h3 {
+      font-size: 1.7rem;
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      flex: 1;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .tech-list li {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.36rem 0.58rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .project-link {
+      appearance: none;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      font: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-strong);
+      font-weight: 700;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .project-link::after {
+      content: "→";
+      transition: transform 180ms ease;
+    }
+
+    .project-link:hover::after,
+    .project-link:focus-visible::after {
+      transform: translateX(4px);
+    }
+
+    .contact-wrap {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: clamp(22px, 4vw, 34px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .contact-copy {
+      color: var(--muted);
+    }
+
+    .contact-copy p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0.8rem 1.2rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(33, 68, 224, 0.15);
+    }
+
+    .muted-link {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 16px 0 42px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    dialog {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 0;
+      background: var(--card);
+      color: var(--ink);
+      width: min(640px, calc(100% - 24px));
+      box-shadow: 0 28px 64px rgba(15, 17, 25, 0.18);
+    }
+
+    dialog::backdrop {
+      background: rgba(14, 16, 21, 0.52);
+    }
+
+    .dialog-inner {
+      padding: 18px 18px 16px;
+    }
+
+    .preview-dialog {
+      width: min(760px, calc(100% - 24px));
+    }
+
+    .preview-dialog .dialog-inner {
+      padding: clamp(18px, 4vw, 30px);
+    }
+
+    .preview-art {
+      min-height: clamp(190px, 38vw, 300px);
+      margin: 18px 0;
+      border-radius: 16px;
+    }
+
+    .preview-art .art-copy strong {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+    }
+
+    .preview-copy {
+      color: var(--muted);
+      margin: 0 0 18px;
+    }
+
+    .sample-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(33, 68, 224, .045), rgba(242, 139, 61, .07));
+    }
+
+    .sample-panel h4 {
+      margin: 0 0 8px;
+      font: 700 1.25rem Georgia, serif;
+    }
+
+    .sample-panel p {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .sample-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sample-items span {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--card);
+      font-size: .82rem;
+    }
+
+    .preview-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .image-tools {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(33, 68, 224, .025);
+    }
+
+    .image-preview {
+      display: grid;
+      place-items: center;
+      min-height: 150px;
+      max-height: 220px;
+      overflow: hidden;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      background: var(--bg-strong);
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .image-preview img {
+      display: block;
+      max-height: 220px;
+    }
+
+    .image-help {
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .dialog-header h3 {
+      font-size: clamp(1.8rem, 4vw, 2.3rem);
+    }
+
+    .preview-heading {
+      margin-top: 10px;
+    }
+
+    .close-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      color: var(--ink);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .project-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.9rem 0.95rem;
+      color: var(--ink);
+      resize: vertical;
+      min-height: 48px;
+    }
+
+    .field textarea {
+      min-height: 120px;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .button:focus-visible,
+    .edit-chip:focus-visible,
+    .close-button:focus-visible,
+    .top-nav a:focus-visible,
+    .contact-link:focus-visible {
+      outline: 3px solid rgba(33, 68, 224, 0.25);
+      outline-offset: 2px;
+    }
+
+    .form-error {
+      display: block;
+      min-height: 1.3rem;
+      color: var(--danger);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .dialog-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .dialog-actions .action-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 840px) {
+
+      .hero-shell,
+      .about-grid,
+      .projects-grid,
+      .contact-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .top-nav {
+        gap: 10px;
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 620px) {
+
+      .header-inner,
+      .section-head,
+      .dialog-actions,
+      .dialog-actions .action-group {
+        display: grid;
+      }
+
+      .header-inner,
+      .section-head {
+        align-items: start;
+      }
+
+      .top-nav {
+        flex-wrap: wrap;
+      }
+
+      .button,
+      .contact-link {
+        width: 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .project-form .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dialog-actions {
+        gap: 10px;
+      }
+
+      .dialog-actions .action-group {
+        width: 100%;
+      }
+    }
+
+    /* Pacific editorial refresh */
+    :root {
+      --bg: #f5f1e8;
+      --bg-strong: #ebe4d7;
+      --card: #fffdf8;
+      --ink: #1c232b;
+      --muted: #555b60;
+      --line: rgba(28, 35, 43, 0.14);
+      --accent: #2348bd;
+      --accent-strong: #19368f;
+      --highlight: #df6849;
+      --shadow: rgba(27, 38, 53, 0.12);
+      color-scheme: light;
+      scroll-padding-top: 92px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171b20;
+        --bg-strong: #222830;
+        --card: #20262d;
+        --ink: #f4f0e8;
+        --muted: #c1c3c1;
+        --line: rgba(244, 240, 232, 0.15);
+        --accent: #9fb4ff;
+        --accent-strong: #c2ceff;
+        --highlight: #ff9a76;
+        --shadow: rgba(0, 0, 0, 0.36);
+        color-scheme: dark;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 87% 14%, rgba(35, 72, 189, 0.075), transparent 25rem),
+        radial-gradient(ellipse at 6% 48%, rgba(223, 104, 73, 0.07), transparent 22rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+      letter-spacing: 0.005em;
+    }
+
+    .container {
+      width: min(1192px, calc(100% - 48px));
+    }
+
+    .site-header {
+      background: rgba(245, 241, 232, 0.94);
+      border-bottom-color: var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .site-header {
+        background: rgba(23, 27, 32, 0.94);
+      }
+    }
+
+    .header-inner {
+      min-height: 76px;
+    }
+
+    .brand {
+      font-size: 0.9rem;
+      letter-spacing: 0.19em;
+      white-space: nowrap;
+    }
+
+    .top-nav {
+      gap: clamp(16px, 2.4vw, 32px);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .top-nav a {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .top-nav a::after {
+      bottom: 4px;
+      height: 2px;
+      background: var(--highlight);
+    }
+
+    .hero {
+      padding: clamp(54px, 8vw, 104px) 0 52px;
+    }
+
+    .hero-shell {
+      grid-template-columns: minmax(0, 1.12fr) minmax(310px, 0.88fr);
+      gap: clamp(30px, 5vw, 68px);
+      align-items: center;
+    }
+
+    .eyebrow,
+    .section-label {
+      color: var(--accent-strong);
+      font-size: 0.73rem;
+      letter-spacing: 0.19em;
+    }
+
+    .eyebrow {
+      margin-bottom: 20px;
+    }
+
+    .eyebrow::before {
+      width: 34px;
+      height: 2px;
+      background: var(--highlight);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      letter-spacing: -0.045em;
+      line-height: 1.04;
+    }
+
+    .hero h1 {
+      max-width: 10ch;
+      margin-bottom: 22px;
+      font-size: clamp(3.65rem, 7.3vw, 6.35rem);
+      line-height: 0.99;
+      letter-spacing: -0.065em;
+    }
+
+    .lead {
+      max-width: 36rem;
+      margin-bottom: 30px;
+      font-size: clamp(1.02rem, 1.45vw, 1.16rem);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      min-height: 50px;
+      border-radius: 6px;
+      padding: 0.8rem 1.28rem;
+      font-size: 0.91rem;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+
+    .button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .button.primary:hover {
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: rgba(255, 253, 248, 0.56);
+    }
+
+    .mini-stats {
+      gap: 0;
+      border-top: 1px solid var(--line);
+      padding-top: 17px;
+      color: var(--muted);
+    }
+
+    .mini-stats li {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 14px;
+      border: 0;
+      border-left: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+
+    .mini-stats li:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .mini-stats strong {
+      margin-bottom: 4px;
+      color: var(--accent-strong);
+      font: 700 1.55rem/1 "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-card {
+      min-height: 392px;
+      padding: clamp(24px, 3vw, 36px);
+      border: 0;
+      border-radius: 5px;
+      background:
+        linear-gradient(147deg, rgba(255, 255, 255, 0.06), transparent 42%),
+        #1d3d9d;
+      color: #fffdf8;
+      box-shadow: 0 28px 66px rgba(24, 45, 99, 0.2);
+      isolation: isolate;
+    }
+
+    .hero-card::before {
+      inset: 20px auto auto 20px;
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(255, 255, 255, 0.27);
+      border-radius: 50%;
+      background: transparent;
+    }
+
+    .hero-card::after {
+      right: -48px;
+      bottom: -73px;
+      width: 240px;
+      height: 240px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(223, 104, 73, 0.94) 0 33%, transparent 33.5%);
+      z-index: -1;
+    }
+
+    .card-header,
+    .hero-card-copy,
+    .hero-card-footer {
+      position: relative;
+    }
+
+    .badge {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 3px;
+      padding: 0.45rem 0.68rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fffdf8;
+      font-size: 0.67rem;
+      letter-spacing: 0.15em;
+    }
+
+    .pulse-dot {
+      background: #f29a70;
+      box-shadow: 0 0 0 6px rgba(242, 154, 112, 0.2);
+    }
+
+    .hero-card-copy {
+      margin: 54px 0 36px;
+      max-width: 22rem;
+    }
+
+    .hero-card-copy h2 {
+      margin-bottom: 16px;
+      color: #fffdf8;
+      font-size: clamp(2.15rem, 3.8vw, 3.25rem);
+      line-height: 1.02;
+    }
+
+    .hero-card-copy p {
+      max-width: 29rem;
+      color: rgba(255, 253, 248, 0.83);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .hero-card-footer {
+      border-top-color: rgba(255, 255, 255, 0.28);
+      padding-top: 18px;
+    }
+
+    .hero-card-footer span {
+      color: rgba(255, 253, 248, 0.72);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+    }
+
+    .hero-card-footer strong {
+      color: #fffdf8;
+      font-size: 1.1rem;
+    }
+
+    main {
+      padding-bottom: 50px;
+    }
+
+    section {
+      padding: clamp(42px, 6vw, 76px) 0;
+      scroll-margin-top: 92px;
+    }
+
+    .section-head {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      margin-bottom: 10px;
+    }
+
+    .section-head h2 {
+      max-width: 20ch;
+      font-size: clamp(2.35rem, 4.5vw, 3.6rem);
+    }
+
+    .about-grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: clamp(30px, 6vw, 88px);
+      align-items: center;
+    }
+
+    .about-copy {
+      font-size: 1.04rem;
+      line-height: 1.85;
+    }
+
+    .note-panel {
+      border-radius: 5px;
+      padding: clamp(22px, 3vw, 32px);
+      border-top: 3px solid var(--highlight);
+      box-shadow: 0 14px 36px rgba(29, 38, 49, 0.055);
+    }
+
+    .note-panel h3 {
+      margin-bottom: 18px;
+      font-size: 1.8rem;
+    }
+
+    .note-panel ul {
+      gap: 13px;
+    }
+
+    .note-panel li {
+      gap: 13px;
+      line-height: 1.55;
+    }
+
+    .note-panel li::before {
+      content: "✳";
+      flex: 0 0 auto;
+      color: var(--highlight);
+    }
+
+    .projects-layout {
+      gap: 22px;
+    }
+
+    .projects-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .project-card {
+      min-width: 0;
+      min-height: 0;
+      gap: 16px;
+      padding: 14px 14px 20px;
+      border-radius: 5px;
+      border-color: var(--line);
+      box-shadow: 0 9px 28px rgba(29, 38, 49, 0.055);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(35, 72, 189, 0.38);
+      box-shadow: 0 20px 40px rgba(29, 38, 49, 0.11);
+    }
+
+    .project-card-header {
+      min-height: 34px;
+      padding: 0 2px;
+    }
+
+    .project-category {
+      border-radius: 2px;
+      padding: 0.38rem 0.5rem;
+      background: rgba(35, 72, 189, 0.09);
+      color: var(--accent-strong);
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+    }
+
+    .edit-chip {
+      min-height: 38px;
+      border-radius: 3px;
+      padding: 0.38rem 0.65rem;
+      color: var(--accent-strong);
+    }
+
+    .project-preview {
+      min-height: 184px;
+      padding: 8px;
+      border: 0;
+      border-radius: 3px;
+      background: var(--bg-strong);
+    }
+
+    .project-art,
+    .preview-art {
+      min-height: 184px;
+      border-radius: 2px;
+    }
+
+    .project-preview.has-image .project-art {
+      min-height: 184px;
+    }
+
+    .project-art::before,
+    .preview-art::before {
+      background:
+        linear-gradient(135deg, rgba(15, 30, 48, 0.05), rgba(15, 30, 48, 0.24)),
+        radial-gradient(ellipse at 75% 15%, rgba(255, 255, 255, 0.44), transparent 28%),
+        linear-gradient(160deg, transparent 39%, rgba(39, 70, 53, 0.28) 40% 49%, transparent 50%),
+        linear-gradient(15deg, rgba(23, 54, 76, 0.43), transparent 58%);
+    }
+
+    .project-art[data-kind="travel"],
+    .preview-art[data-kind="travel"] {
+      background: linear-gradient(150deg, #bedbd2 0%, #6ca9a2 45%, #e8bd7d 46% 68%, #d4875e 100%);
+    }
+
+    .project-art[data-kind="shop"],
+    .preview-art[data-kind="shop"] {
+      background: linear-gradient(145deg, #e1cc9d 0%, #b88758 52%, #604b39 100%);
+    }
+
+    .project-art[data-kind="cafe"],
+    .preview-art[data-kind="cafe"] {
+      background: linear-gradient(145deg, #e8d2ae 0%, #b96f49 59%, #523d31 100%);
+    }
+
+    .art-copy {
+      width: min(100%, 22rem);
+      padding: 20px;
+      text-align: left;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
+    }
+
+    .art-copy strong {
+      font-size: clamp(1.35rem, 2.3vw, 2rem);
+      line-height: 1.04;
+    }
+
+    .art-copy span {
+      margin-top: 10px;
+      font-size: 0.62rem;
+      letter-spacing: 0.17em;
+    }
+
+    .project-card h3 {
+      margin: 0 2px -5px;
+      font-size: clamp(1.45rem, 2vw, 1.8rem);
+      line-height: 1.1;
+    }
+
+    .project-card p {
+      margin: 0 2px;
+      font-size: 0.91rem;
+      line-height: 1.7;
+    }
+
+    .tech-list {
+      gap: 7px;
+      margin: 2px 2px 0;
+    }
+
+    .tech-list li {
+      border-radius: 2px;
+      padding: 0.34rem 0.52rem;
+      font-size: 0.68rem;
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .project-link {
+      min-height: 42px;
+      margin: auto 2px 0;
+      color: var(--accent-strong);
+      font-size: 0.9rem;
+    }
+
+    .project-link:focus-visible,
+    .muted-link:focus-visible,
+    .project-link:focus-visible::after {
+      outline: 3px solid rgba(35, 72, 189, 0.35);
+      outline-offset: 3px;
+    }
+
+    .contact-wrap {
+      position: relative;
+      grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+      gap: clamp(24px, 5vw, 66px);
+      overflow: hidden;
+      border: 0;
+      border-radius: 5px;
+      padding: clamp(28px, 5vw, 58px);
+      background:
+        linear-gradient(115deg, rgba(255, 255, 255, 0.045), transparent 57%),
+        #1d3d9d;
+      box-shadow: 0 22px 54px rgba(24, 45, 99, 0.16);
+    }
+
+    .contact-wrap::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      right: -96px;
+      top: -115px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 50%;
+      box-shadow: 0 0 0 22px rgba(255, 255, 255, 0.045), 0 0 0 50px rgba(255, 255, 255, 0.035);
+      pointer-events: none;
+    }
+
+    .contact-wrap .section-head {
+      position: relative;
+    }
+
+    .contact-copy {
+      color: rgba(255, 253, 248, 0.86);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .contact-methods {
+      position: relative;
+      z-index: 1;
+      align-items: flex-start;
+    }
+
+    .contact-link {
+      min-height: 52px;
+      border: 1px solid #fffdf8;
+      border-radius: 3px;
+      padding: 0.8rem 1.1rem;
+      background: #fffdf8;
+      color: #1d3d9d;
+      box-shadow: none;
+      font-size: 0.91rem;
+    }
+
+    .contact-link:hover,
+    .contact-link:focus-visible {
+      background: #f6e8df;
+      color: #1d3d9d;
+    }
+
+    .muted-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      color: #fffdf8;
+      text-decoration: underline;
+      text-decoration-color: rgba(255, 253, 248, 0.55);
+      text-underline-offset: 4px;
+    }
+
+    footer {
+      padding: 8px 0 38px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+
+    dialog {
+      max-height: min(90dvh, 880px);
+      overflow-y: auto;
+      border-radius: 6px;
+      border-color: var(--line);
+      background: var(--card);
+      box-shadow: 0 30px 90px rgba(15, 22, 34, 0.28);
+    }
+
+    dialog::backdrop {
+      background: rgba(16, 23, 33, 0.62);
+      backdrop-filter: blur(3px);
+    }
+
+    .dialog-inner {
+      padding: clamp(20px, 4vw, 32px);
+    }
+
+    .dialog-header {
+      margin-bottom: 18px;
+    }
+
+    .dialog-header h3 {
+      font-size: clamp(1.7rem, 4vw, 2.35rem);
+    }
+
+    .close-button {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 3px;
+      font-size: 1.5rem;
+    }
+
+    .preview-art {
+      border-radius: 3px;
+    }
+
+    .sample-panel,
+    .image-tools {
+      border-radius: 4px;
+      border-color: var(--line);
+    }
+
+    .sample-panel {
+      background: linear-gradient(135deg, rgba(35, 72, 189, 0.06), rgba(223, 104, 73, 0.07));
+    }
+
+    .sample-items span {
+      border-radius: 3px;
+    }
+
+    .image-tools {
+      background: rgba(35, 72, 189, 0.035);
+    }
+
+    .image-preview {
+      border-radius: 4px;
+    }
+
+    .field input,
+    .field textarea {
+      min-width: 0;
+      border-radius: 4px;
+      background: var(--bg);
+    }
+
+    .field input[type="file"] {
+      max-width: 100%;
+      background: var(--card);
+    }
+
+    .button:focus-visible,
+    .edit-chip:focus-visible,
+    .close-button:focus-visible,
+    .top-nav a:focus-visible,
+    .contact-link:focus-visible,
+    .field input:focus-visible,
+    .field textarea:focus-visible,
+    .project-link:focus-visible,
+    .muted-link:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+
+      .hero-card,
+      .contact-wrap {
+        background:
+          linear-gradient(147deg, rgba(255, 255, 255, 0.07), transparent 42%),
+          #263d88;
+      }
+
+      .button.primary,
+      .button.primary:hover {
+        color: #171b20;
+      }
+
+      .contact-link {
+        background: #fffdf8;
+        color: #1d3d9d;
+      }
+
+      .mini-stats li,
+      .button.secondary,
+      .tech-list li {
+        background-color: rgba(255, 255, 255, 0.035);
+      }
+    }
+
+    @media (min-width: 681px) and (max-width: 840px) {
+      .hero-shell {
+        grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+        gap: 26px;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.15rem, 7vw, 4.8rem);
+      }
+
+      .hero-card {
+        min-height: 350px;
+        padding: 24px;
+      }
+
+      .hero-card-copy {
+        margin-top: 38px;
+      }
+
+      .about-grid,
+      .contact-wrap {
+        grid-template-columns: minmax(0, 1fr) minmax(250px, 0.9fr);
+        gap: 28px;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(100% - 36px, 560px);
+      }
+
+      .header-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2px;
+        min-height: 82px;
+        padding: 10px 0;
+      }
+
+      .brand {
+        font-size: 0.82rem;
+      }
+
+      .top-nav {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 2px clamp(13px, 4vw, 24px);
+        font-size: 0.8rem;
+      }
+
+      .top-nav a {
+        min-height: 36px;
+      }
+
+      .hero {
+        padding: 52px 0 30px;
+      }
+
+      .hero-shell,
+      .about-grid,
+      .contact-wrap {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-shell {
+        gap: 34px;
+      }
+
+      .hero h1 {
+        max-width: 9ch;
+        font-size: clamp(3.35rem, 14vw, 5rem);
+      }
+
+      .lead {
+        font-size: 1rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button,
+      .contact-link {
+        width: 100%;
+      }
+
+      .hero-card {
+        min-height: 344px;
+      }
+
+      .hero-card-copy {
+        margin: 42px 0 28px;
+      }
+
+      .mini-stats li {
+        padding: 0 9px;
+        font-size: 0.69rem;
+      }
+
+      .mini-stats strong {
+        font-size: 1.35rem;
+      }
+
+      section {
+        padding: 42px 0;
+      }
+
+      .section-head {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(2.15rem, 9vw, 3rem);
+      }
+
+      .section-head>.button {
+        width: auto;
+        min-width: 145px;
+      }
+
+      .projects-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .project-card {
+        padding: 14px 14px 18px;
+      }
+
+      .project-art,
+      .preview-art,
+      .project-preview,
+      .project-preview.has-image .project-art {
+        min-height: 194px;
+      }
+
+      .contact-wrap {
+        gap: 24px;
+      }
+
+      .contact-methods {
+        width: 100%;
+      }
+
+      .project-form .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .dialog-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .dialog-actions .action-group {
+        display: flex;
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .dialog-actions .action-group .button {
+        flex: 1 1 auto;
+        width: auto;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .container {
+        width: calc(100% - 32px);
+      }
+
+      .mini-stats li {
+        padding: 0 7px;
+        font-size: 0.64rem;
+      }
+
+      .mini-stats strong {
+        font-size: 1.23rem;
+      }
+
+      .project-card-header {
+        align-items: flex-start;
+      }
+
+      .project-category {
+        max-width: calc(100% - 70px);
+        line-height: 1.3;
+      }
+
+      .dialog-actions .action-group {
+        flex-direction: column;
+      }
+
+      .dialog-actions .action-group .button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand">Carl Carin</a>
+      <nav class="top-nav" aria-label="Main navigation">
+        <a href="#about">Profile</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-shell">
+        <div>
+          <p class="eyebrow">Web designer &amp; developer</p>
+          <h1 id="hero-title">Hi I'm Carl Carin</h1>
+          <p class="lead">I create warm, strategic websites for local brands and small businesses across the Philippines
+            — blending design clarity, smart storytelling, and practical functionality.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">View projects</a>
+            <a class="button secondary" href="#contact">Let’s work together</a>
+          </div>
+          <ul class="mini-stats" aria-label="Highlights">
+            <li><strong>6+</strong> years building digital experiences</li>
+            <li><strong>24</strong> local brand launches</li>
+            <li><strong>1:1</strong> design-first collaboration</li>
+          </ul>
+        </div>
+
+        <aside class="hero-card" aria-label="Carl's current focus">
+          <div class="card-header">
+            <span class="badge">Now booking</span>
+            <span class="pulse-dot" aria-label="Available for work"></span>
+          </div>
+          <div class="hero-card-copy">
+            <h2>Thoughtful web design for real people.</h2>
+            <p>From café brands to travel stories and online stores, I build pages that feel personal, polished, and
+              easy to use.</p>
+          </div>
+          <div class="hero-card-footer">
+            <div><span>Based in</span><strong>Philippines</strong></div>
+            <div><span>Focus</span><strong>Brand &amp; web</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <div>
+          <p class="section-label">Profile</p>
+          <h2 id="about-title">Simple, welcoming digital experiences.</h2>
+        </div>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I’m Carl Carin, a freelance designer and front-end developer helping small businesses look more confident
+            online. My work blends usability, warm storytelling, and the kind of visual clarity that makes people trust
+            a brand immediately.</p>
+          <p>Whether it’s a café, a travel journal, or a local shop, I enjoy turning ideas into websites that feel
+            human, useful, and easy to manage — especially for founders who want their business to feel more polished
+            without complicated systems.</p>
+        </div>
+        <aside class="note-panel" aria-label="Approach overview">
+          <h3>What I value</h3>
+          <ul>
+            <li>Clear strategy before flashy design</li>
+            <li>Friendly, mobile-first experiences</li>
+            <li>Content that feels genuine to the brand</li>
+            <li>Long-term usability and easy updates</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <div>
+          <p class="section-label">Selected work</p>
+          <h2 id="projects-title">Projects</h2>
+        </div>
+        <button type="button" class="button primary" id="add-project-btn">Add project</button>
+      </div>
+      <div class="projects-layout">
+        <div id="project-list" class="projects-grid" aria-live="polite"></div>
+        <p id="project-status" class="sr-only" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-head">
+        <div>
+          <p class="section-label">Contact</p>
+          <h2 id="contact-title">Let’s build something memorable.</h2>
+        </div>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-copy">
+          <p>Need a cleaner online presence for your shop, café, or local brand? I can help shape the content, design,
+            and front-end experience so people connect with it faster.</p>
+        </div>
+        <div class="contact-methods">
+          <a class="contact-link" href="mailto:hello@carlcarin.design">hello@carlcarin.design</a>
+          <a class="muted-link" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Carl Carin</div>
+  </footer>
+
+  <dialog id="project-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <h3 id="dialog-title">Project details</h3>
+        <button type="button" class="close-button" id="close-dialog-btn" aria-label="Close project editor">×</button>
+      </div>
+      <form id="project-form" class="project-form" novalidate>
+        <div class="form-grid">
+          <label class="field">
+            <span>Title</span>
+            <input type="text" name="title" id="title" maxlength="80" required>
+          </label>
+          <label class="field">
+            <span>Category</span>
+            <input type="text" name="category" id="category" maxlength="60" required>
+          </label>
+          <label class="field full">
+            <span>Summary</span>
+            <textarea name="summary" id="summary" maxlength="220" required></textarea>
+          </label>
+          <label class="field full">
+            <span>Technologies</span>
+            <input type="text" name="technologies" id="technologies" maxlength="140" required
+              placeholder="HTML, CSS, JavaScript">
+          </label>
+          <label class="field full">
+            <span>Project URL (optional)</span>
+            <input type="url" name="url" id="url" placeholder="https://your-live-project.com">
+            <span class="image-help">This appears as a separate external link inside the local project preview.</span>
+          </label>
+          <div class="field full">
+            <span id="image-field-label">Project cover photo (optional)</span>
+            <div class="image-tools">
+              <div class="image-preview" id="image-preview" aria-live="polite">
+                <span id="image-preview-empty">No photo selected yet</span>
+                <img id="image-preview-img" alt="Project cover preview" hidden>
+              </div>
+              <label class="field">
+                <span>Upload photos</span>
+                <input type="file" id="image-file" accept="image/*" aria-describedby="image-help image-error">
+              </label>
+              <label class="field">
+                <span>Or use an image URL</span>
+                <input type="url" id="image-url" placeholder="https://your-site.com/photo.jpg"
+                  aria-describedby="image-help image-error">
+              </label>
+              <p class="image-help" id="image-help">Upload one cover photo from your device, or use an image URL. Images
+                are resized and stored in this browser only; files up to 8 MB are accepted.</p>
+              <button type="button" class="button secondary" id="remove-image-btn">Remove photo</button>
+              <output id="image-error" class="form-error" aria-live="polite"></output>
+            </div>
+          </div>
+        </div>
+        <div id="form-error" class="form-error" role="alert" aria-live="assertive"></div>
+        <div class="dialog-actions">
+          <button type="button" class="button danger" id="delete-project-btn" hidden>Delete</button>
+          <div class="action-group">
+            <button type="button" class="button secondary" id="cancel-project-btn">Cancel</button>
+            <button type="submit" class="button primary" id="save-project-btn">Save project</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="preview-dialog" class="preview-dialog" aria-labelledby="preview-title">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <div>
+          <span class="project-category" id="preview-category"></span>
+          <h3 id="preview-title" class="preview-heading">Project preview</h3>
+        </div>
+        <button type="button" class="close-button" id="close-preview-btn" aria-label="Close project preview">×</button>
+      </div>
+      <div class="preview-art" id="preview-art" aria-hidden="true"></div>
+      <p class="preview-copy" id="preview-summary"></p>
+      <div class="preview-footer">
+        <a class="muted-link" id="external-project-link" target="_blank" rel="noopener noreferrer" hidden>Open live
+          project ↗</a>
+        <button type="button" class="button primary" id="edit-preview-project-btn">Edit project &amp; upload
+          photos</button>
+        <button type="button" class="button secondary" id="return-preview-btn">Back to portfolio</button>
+      </div>
+      <ul class="tech-list" id="preview-technologies" aria-label="Technologies"></ul>
+      <section class="sample-panel" aria-labelledby="sample-title">
+        <h4 id="sample-title">Project sample</h4>
+        <p id="sample-description"></p>
+        <div class="sample-items" id="sample-items"></div>
+      </section>
+    </div>
+  </dialog>
+
+  <script>
+    const STORAGE_KEY = 'carl-portfolio-projects-v1';
+    const DEFAULT_PROJECTS = [
+      { title: 'Kapeng Bahay Café', summary: 'A warm café landing page built to showcase the menu, ambiance, and community-driven story behind a neighborhood coffee spot.', category: 'Food & Beverage', technologies: 'HTML, CSS, JavaScript' },
+      { title: 'Samar & Leyte Travel Journal', summary: 'A storytelling-first travel microsite that highlights hidden beaches, local food spots, and personal guides for island-hopping adventures.', category: 'Travel', technologies: 'Responsive UI, Content Design' },
+      { title: 'Local Online Shop', summary: 'A small storefront concept designed around simple browsing, clear product messaging, and an easy checkout path for homegrown products.', category: 'E-commerce', technologies: 'Product UX, Front-End' }
+    ];
+    const projectList = document.getElementById('project-list');
+    const addProjectBtn = document.getElementById('add-project-btn');
+    const projectDialog = document.getElementById('project-dialog');
+    const previewDialog = document.getElementById('preview-dialog');
+    const projectForm = document.getElementById('project-form');
+    const formError = document.getElementById('form-error');
+    const imageError = document.getElementById('image-error');
+    const deleteProjectBtn = document.getElementById('delete-project-btn');
+    const projectStatus = document.getElementById('project-status');
+    const imageFile = document.getElementById('image-file');
+    const imageUrl = document.getElementById('image-url');
+    const imagePreviewImg = document.getElementById('image-preview-img');
+    const imagePreviewEmpty = document.getElementById('image-preview-empty');
+    let projects = loadProjects();
+    let editingIndex = null;
+    let draftImage = '';
+    let imageSource = '';
+    let lastEditorTrigger = null;
+    let lastEditorIndex = null;
+    let lastPreviewTrigger = null;
+    let previewProject = null;
+    let previewToEditorHandoff = false;
+
+    function safeHttpUrl(value) {
+      if (!value) return '';
+      try {
+        const parsed = new URL(String(value).trim());
+        return ['http:', 'https:'].includes(parsed.protocol) ? parsed.href : '';
+      } catch (error) {
+        return '';
+      }
+    }
+
+    function safeImageReference(value) {
+      if (typeof value !== 'string') return '';
+      if (/^data:image\/(?:jpeg|png|webp);base64,[a-z0-9+/]+=*$/i.test(value)) return value;
+      return safeHttpUrl(value);
+    }
+
+    function normalizeProject(project) {
+      if (!project || typeof project !== 'object') return null;
+      const url = safeHttpUrl(project.url);
+      let cleanUrl = url;
+      if (url) {
+        try {
+          if (new URL(url).hostname === 'example.com' || new URL(url).hostname.endsWith('.example.com')) cleanUrl = '';
+        } catch (error) {
+          cleanUrl = '';
+        }
+      }
+      return {
+        title: String(project.title || '').trim(),
+        summary: String(project.summary || '').trim(),
+        category: String(project.category || '').trim(),
+        technologies: String(project.technologies || '').trim(),
+        url: cleanUrl,
+        image: safeImageReference(project.image)
+      };
+    }
+
+    function loadProjects() {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (!raw) return DEFAULT_PROJECTS.map(normalizeProject);
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_PROJECTS.map(normalizeProject);
+        const saved = parsed.map(normalizeProject).filter(project => project && project.title);
+        return saved.length ? saved : DEFAULT_PROJECTS.map(normalizeProject);
+      } catch (error) {
+        return DEFAULT_PROJECTS.map(normalizeProject);
+      }
+    }
+
+    function saveProjects(nextProjects) {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextProjects));
+        projects = nextProjects;
+        return true;
+      } catch (error) {
+        announceStatus('Project list could not be saved in this browser.');
+        return false;
+      }
+    }
+
+    function announceStatus(message) {
+      projectStatus.textContent = message;
+    }
+
+    function setImagePreview(source) {
+      draftImage = safeImageReference(source);
+      imagePreviewImg.hidden = !draftImage;
+      imagePreviewEmpty.hidden = Boolean(draftImage);
+      imagePreviewImg.removeAttribute('src');
+      if (!draftImage) return;
+      imagePreviewImg.onload = () => {
+        if (imagePreviewImg.getAttribute('src') !== draftImage) return;
+        imagePreviewImg.hidden = false;
+        imagePreviewEmpty.hidden = true;
+      };
+      imagePreviewImg.onerror = () => {
+        if (imagePreviewImg.getAttribute('src') !== draftImage) return;
+        imagePreviewImg.hidden = true;
+        imagePreviewEmpty.hidden = false;
+        imageError.textContent = 'That image could not be loaded. Try another image URL or upload a file.';
+        if (imageSource === 'url') draftImage = '';
+      };
+      imagePreviewImg.src = draftImage;
+    }
+
+    function fillForm(project = null) {
+      projectForm.reset();
+      formError.textContent = '';
+      imageError.textContent = '';
+      imageSource = '';
+      imageUrl.value = '';
+      imageFile.value = '';
+      if (project) {
+        document.getElementById('title').value = project.title || '';
+        document.getElementById('summary').value = project.summary || '';
+        document.getElementById('category').value = project.category || '';
+        document.getElementById('technologies').value = project.technologies || '';
+        document.getElementById('url').value = project.url || '';
+        if (project.image) {
+          imageSource = project.image.startsWith('data:') ? 'upload' : 'url';
+          if (imageSource === 'url') imageUrl.value = project.image;
+          setImagePreview(project.image);
+        } else {
+          setImagePreview('');
+        }
+      } else {
+        setImagePreview('');
+      }
+    }
+
+    function openAddProjectDialog(event) {
+      lastEditorTrigger = event.currentTarget;
+      lastEditorIndex = null;
+      editingIndex = null;
+      deleteProjectBtn.hidden = true;
+      fillForm();
+      projectDialog.showModal();
+      document.getElementById('title').focus();
+    }
+
+    function openEditProjectDialog(index, trigger, focusUpload = false) {
+      if (!projects[index]) return false;
+      editingIndex = index;
+      lastEditorTrigger = trigger || document.activeElement || addProjectBtn;
+      lastEditorIndex = index;
+      fillForm(projects[index]);
+      deleteProjectBtn.hidden = false;
+      projectDialog.showModal();
+      (focusUpload ? imageFile : document.getElementById('title')).focus();
+      return true;
+    }
+
+    function finishEditorClose() {
+      const index = lastEditorIndex;
+      editingIndex = null;
+      deleteProjectBtn.hidden = true;
+      fillForm();
+      const trigger = lastEditorTrigger && lastEditorTrigger.isConnected
+        ? lastEditorTrigger
+        : index !== null ? getProjectEditButton(index) : null;
+      lastEditorTrigger = null;
+      lastEditorIndex = null;
+      if (trigger && trigger.isConnected) window.requestAnimationFrame(() => trigger.focus());
+    }
+
+    function finishPreviewClose() {
+      const trigger = lastPreviewTrigger;
+      lastPreviewTrigger = null;
+      previewProject = null;
+      if (previewToEditorHandoff) {
+        previewToEditorHandoff = false;
+        return;
+      }
+      if (trigger && trigger.isConnected) window.requestAnimationFrame(() => trigger.focus());
+    }
+
+    function getProjectEditButton(index) {
+      return projectList.querySelectorAll('.project-card')[index]?.querySelector('.edit-chip') || null;
+    }
+
+    function resolvePreviewProjectIndex() {
+      const matchingIndex = projects.indexOf(previewProject);
+      if (matchingIndex !== -1) return matchingIndex;
+      if (!previewProject) return -1;
+      const matches = projects.reduce((indices, project, index) => {
+        if (project.title === previewProject.title &&
+          project.summary === previewProject.summary &&
+          project.category === previewProject.category &&
+          project.technologies === previewProject.technologies &&
+          project.url === previewProject.url &&
+          project.image === previewProject.image) {
+          indices.push(index);
+        }
+        return indices;
+      }, []);
+      return matches.length === 1 ? matches[0] : -1;
+    }
+
+    function getTechnologyTags(rawValue) {
+      return String(rawValue || '').split(',').map(item => item.trim()).filter(Boolean);
+    }
+
+    function artKind(project) {
+      const description = `${project.title} ${project.category}`.toLowerCase();
+      if (/travel|journal|samar|leyte|island/.test(description)) return 'travel';
+      if (/shop|store|e-commerce|product/.test(description)) return 'shop';
+      return 'cafe';
+    }
+
+    function createArt(project, className, large = false) {
+      const art = document.createElement('div');
+      art.className = className;
+      art.dataset.kind = artKind(project);
+      const image = safeImageReference(project.image);
+      if (image) {
+        art.classList.add('has-image');
+        const img = document.createElement('img');
+        img.alt = large ? `Photo for ${project.title}` : '';
+        img.setAttribute('aria-hidden', large ? 'false' : 'true');
+        const imageSource = image;
+        img.src = image;
+        img.onerror = () => {
+          if (img.getAttribute('src') !== imageSource) return;
+          img.remove();
+          art.classList.remove('has-image');
+        };
+        art.appendChild(img);
+      }
+      const copy = document.createElement('div');
+      copy.className = 'art-copy';
+      const title = document.createElement('strong');
+      title.textContent = project.title;
+      const caption = document.createElement('span');
+      caption.textContent = artKind(project) === 'travel' ? 'Discover the islands' : artKind(project) === 'shop' ? 'Made close to home' : 'A little pause, well made';
+      copy.append(title, caption);
+      art.appendChild(copy);
+      return art;
+    }
+
+    function renderProjects() {
+      projectList.replaceChildren();
+      projects.forEach((project, index) => {
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        const header = document.createElement('div');
+        header.className = 'project-card-header';
+        const category = document.createElement('span');
+        category.className = 'project-category';
+        category.textContent = project.category;
+        const editButton = document.createElement('button');
+        editButton.type = 'button';
+        editButton.className = 'edit-chip';
+        editButton.textContent = 'Edit';
+        editButton.setAttribute('aria-label', `Edit ${project.title}`);
+        editButton.addEventListener('click', () => openEditProjectDialog(index, editButton));
+        header.append(category, editButton);
+
+        const preview = document.createElement('div');
+        preview.className = 'project-preview';
+        if (project.image) preview.classList.add('has-image');
+        preview.appendChild(createArt(project, 'project-art'));
+        const title = document.createElement('h3');
+        title.textContent = project.title;
+        const summary = document.createElement('p');
+        summary.textContent = project.summary;
+        const tags = document.createElement('ul');
+        tags.className = 'tech-list';
+        getTechnologyTags(project.technologies).forEach(tagText => {
+          const tag = document.createElement('li');
+          tag.textContent = tagText;
+          tags.appendChild(tag);
+        });
+        const link = document.createElement('button');
+        link.type = 'button';
+        link.className = 'project-link';
+        link.textContent = 'Visit project';
+        link.setAttribute('aria-label', `Visit project preview: ${project.title}`);
+        link.addEventListener('click', () => openProjectPreview(index, link));
+        card.append(header, preview, title, summary, tags, link);
+        projectList.appendChild(card);
+      });
+    }
+
+    function sampleFor(project) {
+      const kind = artKind(project);
+      if (kind === 'travel') {
+        return { title: 'A slower route through the islands', description: 'A sample itinerary pairs quiet shoreline mornings with local food stops and practical notes for getting around Samar and Leyte.', items: ['Sohoton Cove · boat day', 'Caluwayan Palm Island · beach stop', 'Binagol & moron · local treats'] };
+      }
+      if (kind === 'shop') {
+        return { title: 'Small-batch finds, made nearby', description: 'A simple shop preview that brings makers, materials, and thoughtful everyday pieces together in one easy browse.', items: ['Handwoven market tote · ₱850', 'Cacao tablea set · ₱320', 'Natural soap trio · ₱280'] };
+      }
+      return { title: 'From the neighborhood menu', description: 'A friendly café snapshot with locally inspired favorites, a short seasonal menu, and a place to linger.', items: ['Kapeng barako · ₱110', 'Pandan latte · ₱145', 'Ube cheese pandesal · ₱95'] };
+    }
+
+    function openProjectPreview(index, trigger) {
+      const project = projects[index];
+      if (!project) return;
+      lastPreviewTrigger = trigger;
+      previewProject = project;
+      document.getElementById('preview-art').setAttribute('aria-hidden', project.image ? 'false' : 'true');
+      document.getElementById('preview-category').textContent = project.category;
+      document.getElementById('preview-title').textContent = project.title;
+      document.getElementById('preview-summary').textContent = project.summary;
+      const art = document.getElementById('preview-art');
+      art.replaceChildren(createArt(project, 'preview-art', true));
+
+      const technologyList = document.getElementById('preview-technologies');
+      technologyList.replaceChildren();
+      getTechnologyTags(project.technologies).forEach(tagText => {
+        const tag = document.createElement('li');
+        tag.textContent = tagText;
+        technologyList.appendChild(tag);
+      });
+      const sample = sampleFor(project);
+      document.getElementById('sample-title').textContent = sample.title;
+      document.getElementById('sample-description').textContent = sample.description;
+      const sampleItems = document.getElementById('sample-items');
+      sampleItems.replaceChildren();
+      sample.items.forEach(itemText => {
+        const item = document.createElement('span');
+        item.textContent = itemText;
+        sampleItems.appendChild(item);
+      });
+      const externalLink = document.getElementById('external-project-link');
+      const safeUrl = safeHttpUrl(project.url);
+      externalLink.hidden = !safeUrl;
+      if (safeUrl) externalLink.href = safeUrl;
+      else externalLink.removeAttribute('href');
+      previewDialog.showModal();
+      document.getElementById('close-preview-btn').focus();
+    }
+
+    function editProjectFromPreview() {
+      const index = resolvePreviewProjectIndex();
+      if (index === -1) {
+        announceStatus('This project is no longer available. Close the preview and open the project again.');
+        return;
+      }
+      const editButton = getProjectEditButton(index);
+      if (!editButton) {
+        announceStatus('This project could not be opened for editing. Close the preview and try again.');
+        return;
+      }
+      previewToEditorHandoff = true;
+      previewDialog.close();
+      openEditProjectDialog(index, editButton, true);
+    }
+
+    function validateProjectData(formData) {
+      const title = String(formData.get('title') || '').trim();
+      const summary = String(formData.get('summary') || '').trim();
+      const category = String(formData.get('category') || '').trim();
+      const technologies = String(formData.get('technologies') || '').trim();
+      const rawUrl = String(formData.get('url') || '').trim();
+      if (!title || !summary || !category || !technologies) return 'Title, summary, category, and technologies are required.';
+      if (rawUrl && !safeHttpUrl(rawUrl)) return 'Project URL must be a valid http:// or https:// address.';
+      if (imageUrl.value.trim() && !safeHttpUrl(imageUrl.value.trim())) return 'Photo URL must be a valid http:// or https:// address.';
+      if (imageUrl.value.trim() && imageError.textContent) return 'Check the photo URL or remove it before saving.';
+      return '';
+    }
+
+    async function compressImage(file) {
+      const bitmap = await createImageBitmap(file);
+      const maxEdge = 1200;
+      const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+      canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('Image processing is unavailable.');
+      context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      bitmap.close();
+      const result = canvas.toDataURL('image/jpeg', 0.8);
+      if (result.length > 1_500_000) throw new Error('Compressed image is still too large. Please choose a smaller photo.');
+      return result;
+    }
+
+    async function handleImageFile() {
+      imageError.textContent = '';
+      const file = imageFile.files && imageFile.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        imageError.textContent = 'Choose an image file such as JPG, PNG, or WebP.';
+        imageFile.value = '';
+        return;
+      }
+      if (file.size > 8 * 1024 * 1024) {
+        imageError.textContent = 'That file is over 8 MB. Choose a smaller image.';
+        imageFile.value = '';
+        return;
+      }
+      try {
+        imageSource = 'upload';
+        imageUrl.value = '';
+        setImagePreview(await compressImage(file));
+      } catch (error) {
+        imageError.textContent = error.message || 'This image could not be processed. Try another file.';
+        imageFile.value = '';
+      }
+    }
+
+    function handlePhotoUrlInput() {
+      const value = imageUrl.value.trim();
+      imageError.textContent = '';
+      imageFile.value = '';
+      if (!value) {
+        if (imageSource === 'url') {
+          imageSource = '';
+          setImagePreview('');
+        }
+        return;
+      }
+      const valid = safeHttpUrl(value);
+      if (!valid) {
+        imageSource = 'url';
+        imageError.textContent = 'Enter a complete http:// or https:// image address.';
+        return;
+      }
+      imageSource = 'url';
+      setImagePreview(valid);
+    }
+
+    function handleProjectSubmit(event) {
+      event.preventDefault();
+      formError.textContent = '';
+      const formData = new FormData(projectForm);
+      const validationMessage = validateProjectData(formData);
+      if (validationMessage) {
+        formError.textContent = validationMessage;
+        return;
+      }
+      const newProject = normalizeProject({
+        title: formData.get('title'),
+        summary: formData.get('summary'),
+        category: formData.get('category'),
+        technologies: formData.get('technologies'),
+        url: formData.get('url'),
+        image: draftImage
+      });
+      if (!newProject || !newProject.title) {
+        formError.textContent = 'This project could not be saved.';
+        return;
+      }
+      const isEditing = editingIndex !== null;
+      const nextProjects = projects.slice();
+      if (isEditing) nextProjects[editingIndex] = newProject;
+      else nextProjects.push(newProject);
+      if (!saveProjects(nextProjects)) {
+        formError.textContent = 'Browser storage is full or unavailable. Your changes were not saved; try removing the photo or choosing a smaller one.';
+        return;
+      }
+      renderProjects();
+      projectDialog.close();
+      announceStatus(isEditing ? 'Project updated successfully.' : 'Project added successfully.');
+    }
+
+    function deleteProject() {
+      if (editingIndex === null) return;
+      const project = projects[editingIndex];
+      if (!window.confirm(`Delete "${project.title}"?`)) return;
+      const nextProjects = projects.filter((item, index) => index !== editingIndex);
+      if (!saveProjects(nextProjects)) {
+        formError.textContent = 'This project could not be deleted because browser storage is unavailable.';
+        return;
+      }
+      renderProjects();
+      lastEditorTrigger = addProjectBtn;
+      lastEditorIndex = null;
+      projectDialog.close();
+      announceStatus('Project removed successfully.');
+    }
+
+    function closeWhenBackdropClicked(dialog) {
+      dialog.addEventListener('click', event => {
+        if (event.target === dialog) dialog.close();
+      });
+    }
+
+    addProjectBtn.addEventListener('click', openAddProjectDialog);
+    document.getElementById('close-dialog-btn').addEventListener('click', () => projectDialog.close());
+    document.getElementById('cancel-project-btn').addEventListener('click', () => projectDialog.close());
+    document.getElementById('close-preview-btn').addEventListener('click', () => previewDialog.close());
+    document.getElementById('edit-preview-project-btn').addEventListener('click', editProjectFromPreview);
+    document.getElementById('return-preview-btn').addEventListener('click', () => previewDialog.close());
+    deleteProjectBtn.addEventListener('click', deleteProject);
+    projectForm.addEventListener('submit', handleProjectSubmit);
+    imageFile.addEventListener('change', handleImageFile);
+    imageUrl.addEventListener('input', handlePhotoUrlInput);
+    document.getElementById('remove-image-btn').addEventListener('click', () => {
+      imageSource = '';
+      imageUrl.value = '';
+      imageFile.value = '';
+      imageError.textContent = '';
+      setImagePreview('');
+    });
+    projectDialog.addEventListener('close', finishEditorClose);
+    previewDialog.addEventListener('close', finishPreviewClose);
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      const openDialog = projectDialog.open ? projectDialog : previewDialog.open ? previewDialog : null;
+      if (openDialog) {
+        event.preventDefault();
+        openDialog.close();
+      }
+    });
+    closeWhenBackdropClicked(projectDialog);
+    closeWhenBackdropClicked(previewDialog);
+    renderProjects();
+  </script>
+</body>
+
+</html>
